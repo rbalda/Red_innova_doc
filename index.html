@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-controller="mainController" ng-app="RedInnDoc">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.js"></script>
+        <script src="bower_components/angular-aria/angular-aria.js"></script>
+        <script src="bower_components/angular-resource/angular-resource.js"></script>
+        <script src="bower_components/angular-route/angular-route.js"></script>
+        <script src="bower_components/hammerjs/hammer.js"></script>
+        <script src="bower_components/angular-material/angular-material.js"></script>
+        <script src="js/app.js"></script>
+        <link href="bower_components/angular-material/angular-material.css" rel="stylesheet"/>
+        <link href="bower_components/angular-material/themes/blue-theme.css" rel="stylesheet"/>
+        <link href="css/styles.css" rel="stylesheet"/>
+    </head>
+    <body layout="row" layout-fill>
+        <md-sidenav class="md-sidenav-left md-whiteframe-z2 md-closed ng-isolate-scope md-locked-open" md-component-id="left" md-component-id="left" md-is-locked-open="$media('gt-sm')"  layout="column">
+            <md-toolbar md-class="md-theme-blue">
+                <h1 class="md-toolbar-tools">Red Innovacion Docs</h1>
+            </md-toolbar>
+            <md-content layout="column">
+                <div ng-repeat="op in modules" layout="column" flex>
+                    <md-button flex 
+                           ng-disabled="ifSelected($index)" 
+                               ng-click="selectModulo($index)">{{op.nombre}}</md-button>
+                    <ul ng-show="ifSelected($index)"  class="subitem-list">
+                        <li ng-repeat="subopt in getOpts(selected)">
+                            <a href="{{'#'+subopt.url}}">{{subopt.nombre}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </md-content>
+        </md-sidenav>
+        <md-content flex>
+            <md-toolbar md-theme="blue">
+                <h1 class="md-toolbar-tools">{{"Modulo"+" "+modules[selected].nombre}}</h1>
+            </md-toolbar>
+            <md-content ng-view layout="column" layout-padding>
+            </md-content>
+        </md-content>
+    </body>
+</html>
